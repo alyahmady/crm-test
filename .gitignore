@@ -1,3 +1,26 @@
 Assessment.pdf
+
+# Venv
 .venv
+
+# PyCharm / VsCode
 .idea
+
+# Env files
+!deploy/environments/*.env.example
+deploy/environments/*.env
+
+# Nginx
+deploy/config/nginx/conf.d/*.conf
+
+# Celery
+celeryResults.db
+
+# Volume directories
+logs/
+static/
+media/
+redis_data/
+postgres_data/
+
+

@@ -1,0 +1,76 @@
+FROM python:3.11.3-slim AS compile-image
+LABEL maintainer="better.aly.ahmady@gmail.com"
+LABEL stage=compiler
+
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+RUN apt-get update; \
+    apt-get install -yqq --no-install-recommends \
+    build-essential gcc software-properties-common python3-psycopg2 libpq-dev python3-dev
+
+RUN apt-get autoremove
+
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+RUN pip install --default-timeout=100 --no-cache-dir -U --upgrade pip
+RUN pip install --default-timeout=100 --no-cache-dir wheel
+
+COPY deploy/requirements/base.txt .
+COPY deploy/requirements/local.txt .
+
+RUN pip install --default-timeout=100 --no-cache-dir -r ./local.txt
+
+RUN find /opt/venv -type f -name "*.pyc" -delete 2>/dev/null
+RUN find /opt/venv -type f -name "*.pyo" -delete 2>/dev/null
+RUN find /opt/venv -type d -name "test" -name "tests" -delete 2>/dev/null
+
+
+FROM python:3.11.3-slim AS build-image
+
+COPY --from=compile-image /opt/venv /opt/venv
+
+ENV PATH="/opt/venv/bin:$PATH"
+
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+RUN apt-get update && \
+    apt-get install -yqq --no-install-recommends \
+    supervisor wget nano curl python3-psycopg2
+
+RUN apt-get autoremove
+
+# Supervisor config
+RUN mkdir -p /var/log/supervisor/
+VOLUME /var/log/supervisor/
+
+ADD ./.supervisord/supervisord.conf /etc/supervisor/supervisord.conf
+ADD ./.supervisord/backend.conf /etc/supervisor/conf.d/backend.conf
+ADD ./.supervisord/celery_worker.conf /etc/supervisor/conf.d/celery_worker.conf
+ADD ./.supervisord/celery_beat.conf /etc/supervisor/conf.d/celery_beat.conf
+ADD ./.supervisord/celery_flower.conf /etc/supervisor/conf.d/celery_flower.conf
+
+RUN mkdir -p /code/logs/
+VOLUME /code/logs/
+
+# For security and image performance, directories will be hardcoded
+COPY car_app /code/car_app
+COPY rental_app /code/rental_app
+COPY user_app /code/user_app
+COPY crmtest /code/crmtest
+
+COPY manage.py /code/manage.py
+
+COPY deploy/config/gunicorn.conf.py /code/gunicorn.conf.py
+
+# Entrypoint
+COPY deploy/entrypoints/backend.sh /code/entrypoints/backend.sh
+RUN sed -i 's/\r$//g' /code/entrypoints/backend.sh
+RUN chmod +x /code/entrypoints/backend.sh
+
+WORKDIR /code/
+
+ENTRYPOINT ["/code/entrypoints/backend.sh"]
+HEALTHCHECK --start-period=5s --interval=10s --timeout=5s --retries=8 CMD curl --fail http://localhost:8000/healthcheck/ || exit 1
