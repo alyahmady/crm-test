@@ -35,6 +35,6 @@ else:
     CACHES = {
         "default": {
             "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
-            "LOCATION": "unique-crm-test-snowflake"
+            "LOCATION": "unique-crm-test-snowflake",
         }
     }

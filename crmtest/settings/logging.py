@@ -7,9 +7,7 @@ from .env import env
 LOGS_DIRECTORY = BASE_DIR / env.str("LOGS_DIRECTORY", "logs")
 LOGS_DIRECTORY.mkdir(parents=False, exist_ok=True)
 
-DJANGO_LOG_FILENAME = env.str(
-    "DJANGO_LOG_FILENAME", "debug.log"
-)
+DJANGO_LOG_FILENAME = env.str("DJANGO_LOG_FILENAME", "debug.log")
 CELERY_LOG_FILENAME = env.str("CELERY_LOG_FILENAME", "celeryDebug.log")
 
 DJANGO_DEBUG_LOG_FILE = LOGS_DIRECTORY / DJANGO_LOG_FILENAME
