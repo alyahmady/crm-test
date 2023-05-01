@@ -13,7 +13,7 @@ from .base import (
     DEFAULT_AUTO_FIELD,
     AUTH_USER_MODEL,
 )
-from .cache import CACHES, REDIS_CONNECTION_URI
+from .cache import CACHES, REDIS_CONNECTION_URI, CACHE_ENGINE
 from .database import DATABASES
 from .enums import *
 from .jwt import SIMPLE_JWT
