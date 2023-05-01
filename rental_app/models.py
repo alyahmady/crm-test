@@ -1,5 +1,8 @@
 from django.contrib.auth.models import AbstractUser
+from django.core.exceptions import ValidationError
 from django.db import models
+
+from rental_app.validators import validate_future_date_time
 
 
 class Rental(models.Model):
@@ -19,7 +22,7 @@ class Rental(models.Model):
 
     # Date time
     started_at = models.DateTimeField(null=False)
-    expire_at = models.DateTimeField(null=False)
+    expire_at = models.DateTimeField(null=False, validators=[validate_future_date_time])
 
     # Flags
     is_returned = models.BooleanField(default=False)
@@ -35,3 +38,13 @@ class Rental(models.Model):
         verbose_name = "Rental"
         verbose_name_plural = "Rental"
         ordering = ("-started_at", "-expire_at")
+
+    def clean(self):
+        if self.expire_at and self.started_at and (self.started_at >= self.expire_at):
+            raise ValidationError(
+                "`expire_at` must have a greater value than `started_at`"
+            )
+
+    def save(self, *args, **kwargs):
+        self.clean()
+        super().save(*args, **kwargs)
