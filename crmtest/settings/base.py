@@ -10,7 +10,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 DEBUG = env.bool("DEBUG", None)
 
 if DEBUG is None:
-    environ.Env.read_env(BASE_DIR / "deploy" / "environments", "django.env")
+    environ.Env.read_env(BASE_DIR / "deploy" / "environments", "backend.env")
     DEBUG = env.bool("DEBUG", False)
 
 SECRET_KEY = env.str("SECRET_KEY")
