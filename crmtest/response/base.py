@@ -5,13 +5,7 @@ from rest_framework.response import Response
 
 class CustomResponse(Response):
     def __init__(
-        self,
-        *args,
-        message=None,
-        data=None,
-        status=200,
-        error_id=None,
-        **kwargs
+        self, *args, message=None, data=None, status=200, error_id=None, **kwargs
     ):
         # Filtering kwargs
         response_kwargs = (
