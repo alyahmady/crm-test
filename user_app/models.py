@@ -1,7 +1,5 @@
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
-
-from user_app.managers import CustomUserManager
 
 
 class CustomUser(AbstractUser):
@@ -11,6 +9,7 @@ class CustomUser(AbstractUser):
 
     # Identifier
     email = models.EmailField(unique=True, max_length=255)
+    username = None
 
     # Date time
     date_joined = models.DateTimeField(auto_now_add=True)
@@ -28,7 +27,7 @@ class CustomUser(AbstractUser):
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
-    objects = CustomUserManager()
+    objects = UserManager()
 
     @property
     def full_name(self):
