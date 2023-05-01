@@ -24,12 +24,7 @@ class Migration(migrations.Migration):
                 ("name", models.CharField(max_length=100)),
                 (
                     "tag",
-                    models.CharField(
-                        db_index=True,
-                        help_text="Tag of the car",
-                        max_length=50,
-                        unique=True,
-                    ),
+                    models.CharField(db_index=True, max_length=50, unique=True),
                 ),
                 ("created_at", models.DateTimeField(auto_now_add=True)),
                 ("updated_at", models.DateTimeField(auto_now=True)),

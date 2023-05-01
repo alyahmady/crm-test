@@ -6,7 +6,7 @@ class Car(models.Model):
     # Info
     name = models.CharField(max_length=100)
     tag = models.CharField(
-        max_length=50, help_text="Tag of the car", unique=True, db_index=True
+        max_length=50, unique=True, db_index=True
     )
 
     # Date time
