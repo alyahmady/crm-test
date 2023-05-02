@@ -1,4 +1,5 @@
 {% extends "base/base.html" %}
+{% load car_filters %}
 
 {% block title %}Cars{% endblock %}
 
@@ -8,16 +9,15 @@
     <table>
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Name</th>
                 <th>Plate</th>
+                <th>Body Style</th>
                 <th>Is Available</th>
             </tr>
         </thead>
         <tbody>
             {% for car in cars %}
                 <tr>
-                    <td>{{ car.id }}</td>
                     <td>{{ car.name }}</td>
                     <td>{{ car.plate }}</td>
                     <td>{{ car.body_style|choice_label }}</td>

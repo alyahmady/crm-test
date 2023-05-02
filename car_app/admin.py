@@ -8,11 +8,12 @@ class CarAdmin(admin.ModelAdmin):
     list_display = (
         "name",
         "plate",
+        "body_style",
         "created_at",
         "updated_at",
         "is_active",
     )
-    list_filter = ("is_active",)
+    list_filter = ("is_active", "body_style")
     ordering = (
         "-is_active",
         "-updated_at",

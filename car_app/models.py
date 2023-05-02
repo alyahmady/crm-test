@@ -1,12 +1,15 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+from crmtest.settings import BodyStyle
+
 
 class Car(models.Model):
     # Info
     name = models.CharField(max_length=100)
-    plate = models.CharField(
-        max_length=50, unique=True, db_index=True
+    plate = models.CharField(max_length=50, unique=True, db_index=True)
+    body_style = models.PositiveSmallIntegerField(
+        choices=BodyStyle.choices, default=BodyStyle.OTHER
     )
 
     # Date time
