@@ -7,7 +7,9 @@ from user_app.models import CustomUser
 class UserAdminForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['last_login_info'].required = False
+        self.fields["last_login_info"].required = False
+        self.fields["first_name"].required = False
+        self.fields["last_name"].required = False
 
 
 @admin.register(CustomUser)
