@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 
 from .base import BASE_DIR
@@ -14,8 +13,7 @@ DJANGO_DEBUG_LOG_FILE = LOGS_DIRECTORY / DJANGO_LOG_FILENAME
 CELERY_DEBUG_LOG_FILE = LOGS_DIRECTORY / CELERY_LOG_FILENAME
 
 for log_file in (DJANGO_DEBUG_LOG_FILE, CELERY_DEBUG_LOG_FILE):
-    if not os.path.isfile(log_file):
-        Path(log_file).touch()
+    Path(log_file).touch(exist_ok=True)
 
 LOGGER_NAME = "debugLogger"
 

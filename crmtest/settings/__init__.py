@@ -15,11 +15,22 @@ from .base import (
 )
 from .cache import CACHES, REDIS_CONNECTION_URI, CACHE_ENGINE
 from .database import DATABASES
+from .email import (
+    EMAIL_BACKEND,
+    EMAIL_HOST,
+    EMAIL_PORT,
+    EMAIL_HOST_USER,
+    EMAIL_HOST_PASSWORD,
+    EMAIL_USE_TLS,
+    EMAIL_USE_SSL,
+    DEFAULT_FROM_EMAIL,
+    EMAIL_FILE_PATH,
+)
 from .enums import *
 from .jwt import SIMPLE_JWT
 from .logging import LOGGING, LOGGER_NAME
 from .middleware import MIDDLEWARE
-from .misc import CAR_RETURN_ALERT_INTERVAL_HOURS
+from .misc import CAR_RETURN_ALERT_INTERVAL_MINUTES
 from .paths import (
     STATICFILES_DIRS,
     STATICFILES_FINDERS,
