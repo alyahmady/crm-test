@@ -39,7 +39,7 @@ class Migration(migrations.Migration):
                 ("last_login_info", models.JSONField(default=dict, null=True)),
                 ("is_superuser", models.BooleanField(default=False)),
                 ("is_staff", models.BooleanField(default=False)),
-                ("is_active", models.BooleanField(default=False)),
+                ("is_active", models.BooleanField(default=True)),
                 (
                     "groups",
                     models.ManyToManyField(
