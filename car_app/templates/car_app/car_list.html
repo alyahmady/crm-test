@@ -1,4 +1,5 @@
 {% extends "base/base.html" %}
+{% load car_filters %}
 
 {% block title %}Cars{% endblock %}
 
@@ -8,18 +9,18 @@
     <table>
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Name</th>
                 <th>Plate</th>
+                <th>Body Style</th>
                 <th>Is Available</th>
             </tr>
         </thead>
         <tbody>
             {% for car in cars %}
                 <tr>
-                    <td>{{ car.id }}</td>
                     <td>{{ car.name }}</td>
                     <td>{{ car.plate }}</td>
+                    <td>{{ car.body_style|choice_label }}</td>
                     <td>{{ car.is_available }}</td>
                 </tr>
             {% empty %}
@@ -29,5 +30,16 @@
             {% endfor %}
         </tbody>
     </table>
+
+    <div class="pagination">
+        <span>Page {{ pagination.current_page }} of {{ pagination.pages_count }}</span>
+        {% if pagination.previous_offset is not None %}
+            <a href="?limit={{ limit }}&offset={{ pagination.previous_offset }}">Previous</a>
+        {% endif %}
+
+        {% if pagination.next_offset is not None %}
+            <a href="?limit={{ limit }}&offset={{ pagination.next_offset }}">Next</a>
+        {% endif %}
+    </div>
 
 {% endblock %}
