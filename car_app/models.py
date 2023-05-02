@@ -5,7 +5,7 @@ from django.db import models
 class Car(models.Model):
     # Info
     name = models.CharField(max_length=100)
-    tag = models.CharField(
+    plate = models.CharField(
         max_length=50, unique=True, db_index=True
     )
 
@@ -17,7 +17,7 @@ class Car(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self) -> str:
-        return f"{self.name} ({self.tag})"
+        return f"{self.name} ({self.plate})"
 
     class Meta:
         app_label = "car_app"

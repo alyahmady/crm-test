@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
                 ),
                 ("name", models.CharField(max_length=100)),
                 (
-                    "tag",
+                    "plate",
                     models.CharField(db_index=True, max_length=50, unique=True),
                 ),
                 ("created_at", models.DateTimeField(auto_now_add=True)),
