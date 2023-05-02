@@ -29,3 +29,7 @@ REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "crmtest.pagination.CustomLimitOffsetPagination",
     "PAGE_SIZE": PAGINATION_PAGE_SIZE,
 }
+
+API_VERSION = env.str("API_VERSION", "v1")
+PREFIX = env.str("API_PREFIX", "api")
+API_PREFIX = f"{PREFIX}/{API_VERSION}"
