@@ -2,12 +2,34 @@ import logging
 
 from django.conf import settings
 from django.db import connection
+from django.http import HttpRequest
+from django.shortcuts import render
 from redis import Redis
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
+from crmtest.settings import UserRole
+
 logger = logging.getLogger(settings.LOGGER_NAME)
+
+
+def home_view(request: HttpRequest):
+    user = request.user
+
+    if user.is_authenticated and user.is_active:
+        is_staff = user.groups.filter(name=UserRole.STAFF.value).exists()
+        if is_staff:
+            return render(request, "home/staff.html", {"user": request.user})
+
+        is_admin = user.groups.filter(name=UserRole.ADMIN.value).exists()
+        if is_admin:
+            return render(request, "home/admin.html", {"user": request.user})
+
+        return render(request, "home/authenticated.html", {"user": request.user})
+
+    else:
+        return render(request, "home/anonymous.html")
 
 
 @api_view(["GET"])
