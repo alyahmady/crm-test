@@ -14,6 +14,8 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+    volumes:
+      - ./logs:/code/logs
     env_file:
       - ./deploy/environments/backend.env
     ports:

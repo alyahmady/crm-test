@@ -4,8 +4,8 @@ from django.db import models
 
 
 class UserRole(enum.StrEnum):
-    STAFF = "staff"
-    ADMIN = "admin"
+    STAFF = "Admin"
+    ADMIN = "Staff"
 
 
 class BodyStyle(models.IntegerChoices):
