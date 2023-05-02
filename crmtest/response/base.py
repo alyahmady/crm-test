@@ -23,14 +23,25 @@ class CustomResponse(Response):
         self.status = status or self.status_code
         self.error_id = error_id
 
-        self.data = OrderedDict(
-            {
-                "status": status,
-                "message": message,
-                "result": data,
-                "error_id": error_id,
-            }
-        )
+        if isinstance(data, dict) and error_id and error_id not in data:
+            data["error_id"] = error_id
+            self.data = OrderedDict(
+                {
+                    "status": status,
+                    "message": message,
+                    "result": data,
+                }
+            )
+
+        else:
+            self.data = OrderedDict(
+                {
+                    "status": status,
+                    "message": message,
+                    "result": data,
+                    "error_id": error_id,
+                }
+            )
 
     def __str__(self):
         return self.message

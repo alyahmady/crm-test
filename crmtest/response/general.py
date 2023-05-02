@@ -7,7 +7,7 @@ class SuccessResponse(CustomResponse):
     def __init__(
         self, message=None, data=None, status=status.HTTP_200_OK, *args, **kwargs
     ):
-        super().__init__(message, data, status, *args, **kwargs)
+        super().__init__(message=message, data=data, status=status, *args, **kwargs)
 
 
 class ErrorResponse(CustomResponse):
@@ -19,4 +19,4 @@ class ErrorResponse(CustomResponse):
         *args,
         **kwargs
     ):
-        super().__init__(message, data, status, *args, **kwargs)
+        super().__init__(message=message, data=data, status=status, *args, **kwargs)
