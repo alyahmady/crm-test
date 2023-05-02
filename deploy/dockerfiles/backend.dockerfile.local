@@ -60,6 +60,7 @@ COPY car_app /code/car_app
 COPY rental_app /code/rental_app
 COPY user_app /code/user_app
 COPY crmtest /code/crmtest
+COPY templates /code/templates
 
 COPY manage.py /code/manage.py
 
