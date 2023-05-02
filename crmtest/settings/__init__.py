@@ -1,5 +1,5 @@
 from .apps import INSTALLED_APPS
-from .auth import AUTH_PASSWORD_VALIDATORS, LOGIN_URL
+from .auth import AUTH_PASSWORD_VALIDATORS, LOGIN_URL, HAS_SUPERUSER_GOD_MODE
 from .base import (
     BASE_DIR,
     DEBUG,
@@ -19,6 +19,7 @@ from .enums import *
 from .jwt import SIMPLE_JWT
 from .logging import LOGGING, LOGGER_NAME
 from .middleware import MIDDLEWARE
+from .misc import CAR_RETURN_ALERT_INTERVAL_HOURS
 from .paths import (
     STATICFILES_DIRS,
     STATICFILES_FINDERS,
@@ -31,6 +32,8 @@ from .rest_framework import (
     REST_FRAMEWORK,
     PAGINATION_MAX_PAGE_SIZE,
     PAGINATION_PAGE_SIZE,
+    API_VERSION,
+    API_PREFIX,
 )
 from .swagger import SPECTACULAR_SETTINGS
 from .template import TEMPLATES

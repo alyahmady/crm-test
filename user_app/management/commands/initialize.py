@@ -1,6 +1,7 @@
 import os
 
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group
 from django.core.management.base import BaseCommand
 
 
@@ -11,21 +12,27 @@ class Command(BaseCommand):
     help = "Create SuperUser (admin)"
 
     def handle(self, *args, **options):
-        User = get_user_model()
+        CustomUser = get_user_model()
 
-        admin_email = os.getenv("DJANGO_SUPERUSER_EMAIL")
-        admin_password = os.getenv("DJANGO_SUPERUSER_PASS")
-        if admin_email and admin_password:
-            admin, _ = User.objects.get_or_create(email=admin_email)
-            admin.is_staff = True
-            admin.is_superuser = True
-            admin.is_active = True
-            admin.set_password(admin_password)
-            admin.save()
+        superuser_email = os.getenv("DJANGO_SUPERUSER_EMAIL")
+        superuser_password = os.getenv("DJANGO_SUPERUSER_PASS")
+        if superuser_email and superuser_password:
+            superuser, _ = CustomUser.objects.get_or_create(email=superuser_email)
+
+            staff_group = Group.objects.get(name="staff")
+            admin_group = Group.objects.get(name="admin")
+            staff_group.user_set.add(superuser)
+            admin_group.user_set.add(superuser)
+
+            superuser.is_staff = True
+            superuser.is_superuser = True
+            superuser.is_active = True
+            superuser.set_password(superuser_password)
+            superuser.save()
 
             self.stdout.write(
                 self.style.SUCCESS(
-                    f"SuperUser for {admin_email} with {admin_password} is created successfully"
+                    f"SuperUser for {superuser_email} is created successfully"
                 )
             )
         else:

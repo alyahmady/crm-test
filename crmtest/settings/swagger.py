@@ -1,3 +1,5 @@
+from .rest_framework import API_PREFIX
+
 SPECTACULAR_SETTINGS = {
     "SWAGGER_UI_DIST": "SIDECAR",
     "SWAGGER_UI_SETTINGS": {

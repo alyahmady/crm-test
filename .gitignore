@@ -23,4 +23,5 @@ media/
 redis_data/
 postgres_data/
 
-
+# Python Cache
+__pycache__

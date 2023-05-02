@@ -6,7 +6,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import exception_handler
 
-from response import ErrorResponse
+from crmtest.response import ErrorResponse
 from .base import CustomException
 
 logger = logging.getLogger(settings.LOGGER_NAME)
