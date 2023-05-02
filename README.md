@@ -1,6 +1,11 @@
 Notes:
 
-Email console backend will be redirected to `./logs/debug.log` file
+- Emails will be redirected to `./logs/email` directory
+- To monitor celery, you can use `flower` service, which is running on port `5566`
+- As I started late (I'm really sorry for it) and I didn't have enough time,
+I decided to not style the templates with CSS and Bootstrap, and just use plain HTML.
+
+---
 
 TODO for Production:
 
@@ -12,6 +17,8 @@ TODO for Production:
 If so, we need to reconfigure Nginx config files (templates) in `./deploy/config/nginx/templates`.
 (https://certbot.eff.org/lets-encrypt/ubuntufocal-nginx)
 
+
+---
 
 # CRM test project
 
