@@ -1,0 +1,31 @@
+{% extends "base/base.html" %}
+{% load car_filters %}
+
+{% block title %}Reminder: Return Your Rental Car{% endblock %}
+
+{% block content %}
+
+    <p>Dear {{ rental.user_full_name }}</p>
+
+    <p>This is a friendly reminder that you currently have an
+      overdue rental car that needs to be returned as soon as possible.
+      The details of your rental are as follows:</p>
+
+    <ul>
+        <li><strong>Car Name:</strong> {{ rental.car_name }}</li>
+        <li><strong>Plate Number:</strong> {{ rental.car_plate }}</li>
+        <li><strong>Plate Number:</strong> {{ rental.car_body_style }}</li>
+        <li><strong>Rental Start Date:</strong> {{ rental.started_at }}</li>
+        <li><strong>Rental End Date:</strong> {{ rental.expire_at }}</li>
+    </ul>
+
+    <p>Please make arrangements to return the rental car to the specified
+      location at your earliest convenience.
+      If you have any questions or need further assistance,
+      please contact our customer support team.</p>
+
+    <p>Thank you for your prompt attention to this matter.</p>
+
+    <p>Sincerely,<br>The Rental Car Company</p>
+
+{% endblock %}
