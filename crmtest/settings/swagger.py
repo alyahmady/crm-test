@@ -13,5 +13,6 @@ SPECTACULAR_SETTINGS = {
     "SERVE_INCLUDE_SCHEMA": False,
     # OTHER SETTINGS
     "COMPONENT_SPLIT_REQUEST": True,
-    "SCHEMA_PATH_PREFIX": r"/api/v1/",
+    "SCHEMA_PATH_PREFIX": rf"/{API_PREFIX}/",
+    "PREPROCESSING_HOOKS": ["crmtest.scheme.preprocessing_filter_spec"],
 }

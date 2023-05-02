@@ -34,4 +34,15 @@
         </tbody>
     </table>
 
+    <div class="pagination">
+        <span>Page {{ pagination.current_page }} of {{ pagination.pages_count }}</span>
+        {% if pagination.previous_offset is not None %}
+            <a href="?limit={{ limit }}&offset={{ pagination.previous_offset }}">Previous</a>
+        {% endif %}
+
+        {% if pagination.next_offset is not None %}
+            <a href="?limit={{ limit }}&offset={{ pagination.next_offset }}">Next</a>
+        {% endif %}
+    </div>
+
 {% endblock %}
