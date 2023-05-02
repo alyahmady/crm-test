@@ -19,8 +19,8 @@ class Command(BaseCommand):
         if superuser_email and superuser_password:
             superuser, _ = CustomUser.objects.get_or_create(email=superuser_email)
 
-            staff_group = Group.objects.get(name="staff")
-            admin_group = Group.objects.get(name="admin")
+            staff_group = Group.objects.get(name__iexact="staff")
+            admin_group = Group.objects.get(name__iexact="admin")
             staff_group.user_set.add(superuser)
             admin_group.user_set.add(superuser)
 
