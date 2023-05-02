@@ -4,8 +4,6 @@ import django.db.models.deletion
 from django.conf import settings
 from django.db import migrations, models
 
-from rental_app.validators import validate_future_date_time
-
 
 class Migration(migrations.Migration):
     initial = True
@@ -29,10 +27,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ("started_at", models.DateTimeField()),
-                (
-                    "expire_at",
-                    models.DateTimeField(validators=[validate_future_date_time]),
-                ),
+                ("expire_at", models.DateTimeField()),
                 ("is_returned", models.BooleanField(default=False)),
                 (
                     "car",
