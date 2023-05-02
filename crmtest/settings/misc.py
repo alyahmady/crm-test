@@ -1,0 +1,3 @@
+from .env import env
+
+CAR_RETURN_ALERT_INTERVAL_HOURS = env.int("CAR_RETURN_ALERT_INTERVAL_HOURS", 6)
