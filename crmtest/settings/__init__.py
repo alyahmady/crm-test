@@ -1,5 +1,5 @@
 from .apps import INSTALLED_APPS
-from .auth import AUTH_PASSWORD_VALIDATORS
+from .auth import AUTH_PASSWORD_VALIDATORS, LOGIN_URL
 from .base import (
     BASE_DIR,
     DEBUG,
