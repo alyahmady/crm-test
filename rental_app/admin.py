@@ -21,7 +21,7 @@ class RentalAdmin(admin.ModelAdmin):
     )
     search_fields = (
         "user__email",
-        "car__tag",
+        "car__plate",
         "car__name",
         "user__last_name",
         "user__first_name",
