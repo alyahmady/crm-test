@@ -1,0 +1,15 @@
+{% extends "base/base.html" %}
+
+{% block title %}CRM | User Home{% endblock %}
+
+{% block content %}
+
+    {% if user.first_name %}
+      <h1>Welcome {{ user.first_name }}</h1>
+    {% else %}
+      <h1>Welcome</h1>
+    {% endif %}
+
+    <a href="{% url 'user_app:logout' %}">Logout</a>
+
+{% endblock %}

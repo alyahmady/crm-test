@@ -1,0 +1,14 @@
+{% extends "base/base.html" %}
+
+{% block title %}CRM | Home{% endblock %}
+
+{% block content %}
+
+    <h1>Welcome to the Home page!</h1>
+    <p>This is the home page of CRM.</p>
+    <a href="{% url 'user_app:login' %}">Login</a>
+    <a href="{% url 'user_app:signup' %}">SignUp</a>
+
+    <a href="{% url 'user_app:login' %}?next={% url 'car_app:car-list' %}">Cars List</a>
+
+{% endblock %}

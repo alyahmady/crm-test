@@ -1,0 +1,14 @@
+{% extends "base/base.html" %}
+
+{% block title %}CRM | SignUp{% endblock %}
+
+{% block content %}
+
+  <h1>User Registration</h1>
+  <form method="POST" action="{% url 'user_app:signup' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">SignUp</button>
+  </form>
+
+{% endblock %}

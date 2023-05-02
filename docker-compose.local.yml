@@ -1,0 +1,71 @@
+version: "3.9"
+
+services:
+
+  backend:
+    restart: always
+    container_name: crmtest_backend
+    hostname: crmtest_backend
+    build:
+      context: ./
+      dockerfile: ./deploy/dockerfiles/backend.dockerfile.local
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./logs:/code/logs
+    env_file:
+      - ./deploy/environments/backend.env
+    ports:
+      - "8000:8000"
+      - "5566:5566"
+
+  nginx:
+    image: nginx:stable
+    restart: unless-stopped
+    container_name: crmtest_nginx
+    hostname: crmtest_nginx
+    env_file:
+      - ./deploy/environments/nginx.env
+    depends_on:
+      - backend
+    ports:
+      # Replace `80` according to `NGINX_PORT` variable in `./deploy/environments/nginx.env`
+      - "80:80"
+    volumes:
+      - ./deploy/config/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./deploy/config/nginx/conf.d:/etc/nginx/conf.d
+      - ./deploy/config/nginx/templates:/etc/nginx/templates:ro
+      - ./logs/nginx:/var/log/nginx
+
+  redis:
+    image: redis:7.0.11-alpine3.17
+    restart: unless-stopped
+    container_name: crmtest_redis
+    hostname: crmtest_redis
+    env_file:
+      - ./deploy/environments/redis.env
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 3s
+      retries: 10
+      start_period: 5s
+      timeout: 3s
+
+  postgres:
+    restart: unless-stopped
+    container_name: crmtest_postgres
+    hostname: crmtest_postgres
+    build:
+      context: ./
+      dockerfile: ./deploy/dockerfiles/postgres.dockerfile.local
+    env_file:
+      - ./deploy/environments/postgres.env
+    ports:
+      - "5432:5432"

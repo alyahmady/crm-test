@@ -1,0 +1,48 @@
+{% extends "base/base.html" %}
+
+{% block title %}CRM | Rentals List{% endblock %}
+
+{% block content %}
+
+    <h1>List of Rentals</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>User Name</th>
+                <th>User Email</th>
+                <th>Car Name</th>
+                <th>Car Plate</th>
+                <th>Started from</th>
+                <th>Expire in</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for rental in rentals %}
+                <tr>
+                    <td>{{ rental.user_full_name }}</td>
+                    <td>{{ rental.user_email }}</td>
+                    <td>{{ rental.car_name }}</td>
+                    <td>{{ rental.car_plate }}</td>
+                    <td>{{ rental.started_at }}</td>
+                    <td>{{ rental.expire_at }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="5">No rentals found.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        <span>Page {{ pagination.current_page }} of {{ pagination.pages_count }}</span>
+        {% if pagination.previous_offset is not None %}
+            <a href="?limit={{ limit }}&offset={{ pagination.previous_offset }}">Previous</a>
+        {% endif %}
+
+        {% if pagination.next_offset is not None %}
+            <a href="?limit={{ limit }}&offset={{ pagination.next_offset }}">Next</a>
+        {% endif %}
+    </div>
+
+{% endblock %}
