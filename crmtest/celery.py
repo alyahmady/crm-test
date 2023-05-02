@@ -33,7 +33,7 @@ class CeleryConfigurations:
         "alert-car-return": {
             "task": "rental_app.tasks.alert_car_return",
             "schedule": crontab(
-                hour=f"*/{settings.CAR_RETURN_ALERT_INTERVAL_HOURS}"
+                minute=f"*/{settings.CAR_RETURN_ALERT_INTERVAL_MINUTES}"
             ),
             "args": tuple(),
         },
