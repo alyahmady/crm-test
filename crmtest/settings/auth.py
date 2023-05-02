@@ -1,3 +1,7 @@
+from .env import env
+
+HAS_SUPERUSER_GOD_MODE = env.bool("HAS_SUPERUSER_GOD_MODE", False)
+
 LOGIN_URL = "/user/login/"
 
 AUTH_PASSWORD_VALIDATORS = [
