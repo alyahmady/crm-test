@@ -7,7 +7,7 @@ from car_app.models import Car
 class CarAdmin(admin.ModelAdmin):
     list_display = (
         "name",
-        "tag",
+        "plate",
         "created_at",
         "updated_at",
         "is_active",
@@ -18,4 +18,4 @@ class CarAdmin(admin.ModelAdmin):
         "-updated_at",
         "-created_at",
     )
-    search_fields = ("tag", "name")
+    search_fields = ("plate", "name")
