@@ -1,6 +1,7 @@
 import os
 
 from celery import Celery
+from celery.schedules import crontab
 from django.conf import settings
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
@@ -23,10 +24,20 @@ class CeleryConfigurations:
     task_queues = None
     task_create_missing_queues = True
     task_default_queue = "crmtest_celery"
-    imports = []
+    imports = [
+        "rental_app.tasks"
+    ]
 
     # Schedule tasks
-    beat_schedule = {}
+    beat_schedule = {
+        "alert-car-return": {
+            "task": "rental_app.tasks.alert_car_return",
+            "schedule": crontab(
+                hour=f"*/{settings.CAR_RETURN_ALERT_INTERVAL_HOURS}"
+            ),
+            "args": tuple(),
+        },
+    }
 
 
 celery_app = Celery()
