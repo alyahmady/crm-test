@@ -12,6 +12,7 @@ from .base import (
     USE_TZ,
     DEFAULT_AUTO_FIELD,
     AUTH_USER_MODEL,
+    ALLOWED_HOSTS,
 )
 from .cache import CACHES, REDIS_CONNECTION_URI, CACHE_ENGINE
 from .database import DATABASES
