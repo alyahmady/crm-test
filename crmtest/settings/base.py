@@ -29,4 +29,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "user_app.CustomUser"
 
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["*"])
+
+
 mimetypes.add_type("application/javascript", ".js", True)
